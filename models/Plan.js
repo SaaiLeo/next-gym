@@ -5,10 +5,10 @@ const planSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    pirce: Number,
+    price: Number,
     duration: Number
 });
 
-const Plan = mongoose.models.plan || mongoose.models("plan", planSchema);
+const Plan = mongoose.models.plan || mongoose.model("plan", planSchema);
 
 export default Plan;
