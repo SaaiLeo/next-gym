@@ -6,3 +6,9 @@ export async function POST(request) {
     await plan.save()
     return Response.json(plan)
 }
+
+export async function GET() {
+    const plans = await Plan.find().sort({price: -1})
+    return Response.json(plans)
+}
+
