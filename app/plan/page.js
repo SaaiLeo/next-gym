@@ -10,7 +10,8 @@ export default function Home() {
     const APIBASE = process.env.NEXT_PUBLIC_API_URL;
 
     const [planList, setPlanList] = useState([]);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const [editMode, setEditMode] = useState(false);
 
     async function fetchPlan() {
         const data = await fetch(`${APIBASE}/plan`);
@@ -23,6 +24,23 @@ export default function Home() {
     }, []);
 
     function handlePlanFormSubmit(data) {
+        if (editMode) {
+            // Modify new plan if plan exit
+            fetch(`${APIBASE}/plan`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            }).then(() => {
+                fetchPlan()
+                stopEditMode()
+            });
+
+            return
+        }
+
+        // Create new plan if plan doesn't exit
         fetch(`${APIBASE}/plan`, {
             method: "POST",
             headers: {
@@ -39,10 +57,24 @@ export default function Home() {
         if (!confirm(`Deleting [${plan.name}]`)) return
 
         const id = plan._id
-        await fetch(`${APIBASE}/plan/${id}`,{
+        await fetch(`${APIBASE}/plan/${id}`, {
             method: "DELETE",
         })
         fetchPlan()
+    }
+
+    function startEditMode(plan) {
+        reset(plan)
+        setEditMode(true)
+    }
+
+    function stopEditMode() {
+        reset({
+            name: '',
+            price: '',
+            duration: '',
+        })
+        setEditMode(false)
     }
 
     return (
@@ -58,12 +90,51 @@ export default function Home() {
                             className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
                         />
                     </div>
-                    <div className="col-span-2 text-right">
+
+                    <div>Price (THB):</div>
+                    <div>
+                    <input
+                        name="price"
+                        type="number"
+                        {...register("price", { required: true })}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                    />
+                    </div>
+
+                    <div>Duration (month):</div>
+                    <div>
                         <input
-                            type="submit"
-                            value="Create"
-                            className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full"
+                        name="duration"
+                        type="number"
+                        {...register("duration", {required: true})}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
                         />
+                    </div>
+
+                    <div className="col-span-2 text-right">
+                        {editMode ?
+                            <>
+                                <input
+                                    type="submit"
+                                    value="Update"
+                                    className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full"
+                                />
+                                {'  '}
+                                <button
+                                    onClick={() => stopEditMode()}
+                                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full"
+                                >
+                                    Cancel
+                                </button>
+                            </>
+                            :
+                            <input
+                                type="submit"
+                                value="Create"
+                                className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-full"
+                            />
+                        }
+
                     </div>
                 </div>
             </form>
@@ -72,7 +143,8 @@ export default function Home() {
                 <h1>Plan ({planList.length})</h1>
                 {planList.map((plan) =>
                     <div key={plan._id} className="ml-4">
-                        <button onClick={() =>  deletePlan(plan)}>Delete</button>
+                        <button onClick={() => deletePlan(plan)} className="ml-2">Delete</button>
+                        <button onClick={() => startEditMode(plan)} className="ml-2">Edit</button>
                         <Link href={`/plan/${plan._id}`} className="text-red-600">
                             {plan.name}
                         </Link>
