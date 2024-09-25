@@ -3,11 +3,29 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import {DataGrid} from "@mui/x-data-grid";
 
 
 export default function Home() {
 
     const APIBASE = process.env.NEXT_PUBLIC_API_URL;
+
+    const columns = [
+        {field: 'Action', headerName: "Action", width: 90, 
+            renderCell: (params) => {
+                return (
+                    <div>
+                        <button onClick={() => startEditMode(params.row)}>✏️</button>
+                        {'  '}
+                        <button onClickCapture={() => deletePlan(params.row)}>🗑️</button>
+                    </div>
+                )
+            }
+        },
+        {field: 'name', headerName: 'Name', width: 150},
+        {field: 'price', headerName: 'Price (THB)', width: 150},
+        {field: 'duration', headerName: 'Duration (Month)', width: 150}
+    ]
 
     const [planList, setPlanList] = useState([]);
     const { register, handleSubmit, reset } = useForm();
@@ -16,7 +34,13 @@ export default function Home() {
     async function fetchPlan() {
         const data = await fetch(`${APIBASE}/plan`);
         const c = await data.json();
-        setPlanList(c);
+        const c2 = c.map((plan) => {
+            return{
+            ...plan,
+            id: plan._id,
+            }
+        })
+        setPlanList(c2);
     }
 
     useEffect(() => {
@@ -139,7 +163,15 @@ export default function Home() {
                 </div>
             </form>
 
+
             <div className="ml-4">
+                <DataGrid
+                    rows={planList}
+                    columns={columns}
+                />
+            </div>
+
+            {/* <div className="ml-4">
                 <h1>Plan ({planList.length})</h1>
                 {planList.map((plan) =>
                     <div key={plan._id} className="ml-4">
@@ -150,7 +182,7 @@ export default function Home() {
                         </Link>
                     </div>
                 )}
-            </div>
+            </div> */}
 
         </main>
     )
