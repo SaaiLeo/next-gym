@@ -48,19 +48,21 @@ export default function Home() {
     return (
         <main>
             <form onSubmit={handleSubmit(handlePlanFormSubmit)}>
-                <div>
+                <div className="grid grid-cols-2 gap-4 w-fit m-4 border border-gray-400 p-2 rounded-lg">
                     <div>Plan name:</div>
                     <div>
                         <input
                             name="name"
                             type="text"
                             {...register("name", { required: true })}
+                            className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
                         />
                     </div>
                     <div className="col-span-2 text-right">
                         <input
                             type="submit"
                             value="Create"
+                            className="bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full"
                         />
                     </div>
                 </div>
@@ -71,7 +73,7 @@ export default function Home() {
                 {planList.map((plan) =>
                     <div key={plan._id} className="ml-4">
                         <button onClick={() =>  deletePlan(plan)}>Delete</button>
-                        <Link href={`/plan/${plan._id}`}>
+                        <Link href={`/plan/${plan._id}`} className="text-red-600">
                             {plan.name}
                         </Link>
                     </div>
