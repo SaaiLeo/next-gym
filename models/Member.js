@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const memberSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     phone: Number,
     age: Number,
     height: Number,
