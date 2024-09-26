@@ -59,6 +59,39 @@ export default function Home() {
                         className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
                     />
 
+                    <h1>Phone:</h1>
+                    <input
+                        name="phone"
+                        type="number"
+                        {...register("phone")}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                    />
+
+                    <h1>Age:</h1>
+                    <input
+                        name="age"
+                        type="number"
+                        {...register("age")}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                    />
+
+                    <h1>Height:</h1>
+                    <input
+                        name="height"
+                        type="number"
+                        {...register("height")}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                    />
+
+
+                    <h1>Weight:</h1>
+                    <input
+                        name="weight"
+                        type="number"
+                        {...register("weight")}
+                        className="border border-gray-300 text-gray-600 text-sm rounded-lg focus: ring-blue-500 focus:border-blue-500 w-full p-2.5"
+                    />
+
                     <div className="col-span-2 text-right">
                         <input
                             type="submit"
@@ -75,7 +108,7 @@ export default function Home() {
                     <div key={member._id} className="ml-4">
                         <button onClick={() => deleteMember(member)}>Delete</button>
                         <Link href={`/plan/${member._id}`} className="text-red-600">
-                            {member.name}
+                            {member.name} 📞 {member.phone} ☠️ {member.age} {member.height} {member.weight}
                         </Link>
                     </div>
                 )}
