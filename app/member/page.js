@@ -9,7 +9,8 @@ export default function Home() {
     const APIBASE = process.env.NEXT_PUBLIC_API_URL
 
     const [memberList, setMemberList] = useState([]);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const [editMode, setEditMode] = useState(false);
 
     async function fetchMember() {
         const data = await fetch(`${APIBASE}/member`);
@@ -34,6 +35,20 @@ export default function Home() {
 
     function handleMemberFormSubmit(data) {
 
+        if (editMode) {
+            fetch(`${APIBASE}/member`, {
+                method: "PUT",
+                headers: {
+                    "Content-Types" : "appliction/json",
+                },
+                body: JSON.stringify(data)
+        }).then(() => {
+            fetchMember()
+            stopEditMode()
+        })
+        return
+        }
+
         // create new
         fetch(`${APIBASE}/member`, {
             method: "POST",
@@ -45,6 +60,22 @@ export default function Home() {
             fetchMember()
         });
         return
+    }
+
+    function startEditMode(member) {
+        reset(member)
+        setEditMode(true)
+    }
+
+    function stopEditMode() {
+        reset({
+            name:"",
+            phone:"",
+            age:"",
+            height:"",
+            weight:"",
+    })
+        setEditMode(false)
     }
 
     return (
@@ -93,11 +124,27 @@ export default function Home() {
                     />
 
                     <div className="col-span-2 text-right">
-                        <input
-                            type="submit"
-                            value="Create"
-                            className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-full"
-                        />
+                        {editMode ?
+                            <>
+                                <input
+                                    type="submit"
+                                    value="Update"
+                                    className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                />
+
+                                <button 
+                                onClick={() => stopEditMode()}
+                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full"
+                                >Cancel</button>
+
+                            </>
+                            :
+                            <input
+                                type="submit"
+                                value="Create"
+                                className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-full"
+                            />
+                        }
                     </div>
                 </div>
 
@@ -107,6 +154,7 @@ export default function Home() {
                 {memberList.map((member) =>
                     <div key={member._id} className="ml-4">
                         <button onClick={() => deleteMember(member)}>Delete</button>
+                        <button onClick={() => startEditMode(member)}>Edit</button>
                         <Link href={`/plan/${member._id}`} className="text-red-600">
                             {member.name} 📞 {member.phone} ☠️ {member.age} {member.height} {member.weight}
                         </Link>
