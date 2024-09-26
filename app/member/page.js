@@ -2,11 +2,30 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { stringify } from "postcss";
+import { DataGrid } from "@mui/x-data-grid";
 
 export default function Home() {
 
     const APIBASE = process.env.NEXT_PUBLIC_API_URL
+
+    const columns = [
+        {field: 'Action', headerName: 'Action', width: 90,
+            renderCell: (params) => {
+                return (
+                    <div>
+                        <button onClick={() => startEditMode(params.row)}>✏️</button>
+                        {'  '}
+                        <button onClick={() => deleteMember(params.row)}>🗑️</button>
+                    </div>
+                )
+            }
+        },
+        {field: 'name', headerName: 'Name', width: 150},
+        {field: 'phone', headerName: 'Phone', width: 150},
+        {field: 'age', headerName: 'Age', width: 150},
+        {field: 'height', headerName: 'Height', width: 150},
+        {field: 'weight', headerName: 'Weight', width: 150},
+    ]
 
     const [memberList, setMemberList] = useState([]);
     const { register, handleSubmit, reset } = useForm();
@@ -15,7 +34,13 @@ export default function Home() {
     async function fetchMember() {
         const data = await fetch(`${APIBASE}/member`);
         const c = await data.json()
-        setMemberList(c)
+        const c2 = c.map((member) => {
+            return{
+            ...member,
+            id: member._id,
+            }
+        })
+        setMemberList(c2)
     }
 
     useEffect(() => {
@@ -149,7 +174,15 @@ export default function Home() {
                 </div>
 
             </form>
-            <div>
+
+            <div className="m-2">
+                <DataGrid 
+                    rows={memberList}
+                    columns={columns}
+                />
+            </div>
+
+            {/* <div>
                 <h1>All members ({memberList.length})</h1>
                 {memberList.map((member) =>
                     <div key={member._id} className="ml-4">
@@ -160,7 +193,7 @@ export default function Home() {
                         </Link>
                     </div>
                 )}
-            </div>
+            </div> */}
         </main >
     )
 }
