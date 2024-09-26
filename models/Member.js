@@ -5,7 +5,7 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    phone: Number,
+    phone: String,
     age: Number,
     height: Number,
     weight: Number,
