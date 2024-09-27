@@ -23,7 +23,7 @@ export default function Home() {
         {field: 'name', headerName: 'Name', width: 150},
         {field: 'phone', headerName: 'Phone', width: 150},
         {field: 'salary', headerName: 'Salary', width: 150},
-        {field: 'workinghour', headerName: 'Working Hour', width: 150},
+        {field: 'workinghour', headerName: 'WorkingHour', width: 150},
         // {field: 'weight', headerName: 'Weight', width: 150},
     ]
 

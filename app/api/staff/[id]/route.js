@@ -1,4 +1,4 @@
-import Member from '@/models/Staff';
+import Staff from '@/models/Staff';
 
 export async function GET(request, {params}) {
     const id = params.id;
