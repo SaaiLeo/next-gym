@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const staffSchema = new mongoose.Schema({
     name: String,
-    phone: Number,
+    phone: String,
     salary: Number,
-    workingHours: String
+    workinghour: Number,
 })
 
 const Staff = mongoose.models.staff || mongoose.model("staff", staffSchema);
