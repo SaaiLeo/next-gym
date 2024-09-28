@@ -30,12 +30,14 @@ export default function Home() {
     { field: "plan", headerName: "Plan", width: 150 },
     { field: "startDate", headerName: "StartDate", width: 150 },
     { field: "endDate", headerName: "EndDate", width: 150 },
+    { field: "trainer", headerName: "Trainer", width: 150 },
   ];
 
   const [memberList, setMemberList] = useState([]);
   const [planList, setPlanList] = useState([]);
   const { register, handleSubmit, reset, watch, setValue } = useForm();
   const [editMode, setEditMode] = useState(false);
+  const [staffList, setStaffList] = useState([]);
 
   const startDate = watch("startDate");
   const selectedPlan = watch("plan");
@@ -66,10 +68,16 @@ export default function Home() {
     const c1 = await data.json();
     setPlanList(c1);
   }
+  async function fetchStaff() {
+    const data = await fetch(`${APIBASE}/staff`);
+    const c3 = await data.json();
+    setStaffList(c3);
+  }
 
   useEffect(() => {
     fetchPlan();
     fetchMember();
+    fetchStaff();
   }, []);
 
   useEffect(() => {
@@ -79,7 +87,7 @@ export default function Home() {
       const calculatedEndDate = calculateEndDate(startDate, planDuration);
       setValue("endDate", calculatedEndDate); // Set endDate value in form
     }
-  }, [startDate, selectedPlan, planList, setValue]);
+  }, [startDate, selectedPlan, planList, staffList, setValue]);
 
   async function deleteMember(member) {
     if (!confirm([`Deleting ${member.name}`])) return;
@@ -134,6 +142,7 @@ export default function Home() {
       plan: "",
       startDate: "",
       endDate: "",
+      trainer: "",
     });
     setEditMode(false);
   }
@@ -153,7 +162,7 @@ export default function Home() {
           <h1>Phone:</h1>
           <input
             name="phone"
-            type="tel"
+            type="string"
             {...register("phone")}
             className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
           />
@@ -201,7 +210,7 @@ export default function Home() {
           <input
             name="startDate"
             type="date"
-            {...register("startDate")}
+            {...register("startDate", { required: true })}
             className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
           />
 
@@ -213,6 +222,20 @@ export default function Home() {
             readOnly
             className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
           />
+          <h1>Trainer:</h1>
+          <div>
+            <select
+              name="trainer"
+              {...register("trainer", { required: true })}
+              className="border border-black w-full"
+            >
+              {staffList.map((c3) => (
+                <option key={c3._id} value={c3.name}>
+                  {c3.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="col-span-2 text-right">
             {editMode ? (
