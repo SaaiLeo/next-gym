@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
 import { DataGrid } from "@mui/x-data-grid";
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   const APIBASE = process.env.NEXT_PUBLIC_API_URL;
@@ -17,13 +17,13 @@ export default function Home() {
           <div className="flex space-x-2">
             <button
               onClick={() => startEditMode(params.row)}
-              className="bg-blue-500 hover:bg-blue-700 text-white p-1 rounded-md"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md"
             >
               ✏️
             </button>
             <button
               onClick={() => deleteStaff(params.row)}
-              className="bg-red-500 hover:bg-red-700 text-white p-1 rounded-md"
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md"
             >
               🗑️
             </button>
@@ -82,7 +82,7 @@ export default function Home() {
       return;
     }
 
-    // create new
+    // Create new staff
     fetch(`${APIBASE}/staff`, {
       method: "POST",
       headers: {
@@ -110,75 +110,100 @@ export default function Home() {
   }
 
   return (
-    <main className="p-6 bg-gray-50 min-h-screen">
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <form onSubmit={handleSubmit(handleMemberFormSubmit)} className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Name:</label>
-            <input
-              name="name"
-              type="text"
-              {...register("name", { required: true })}
-              className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Phone:</label>
-            <input
-              name="phone"
-              type="number"
-              {...register("phone")}
-              className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Salary:</label>
-            <input
-              name="salary"
-              type="number"
-              {...register("salary")}
-              className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-700 font-semibold mb-2">Working Hour:</label>
-            <input
-              name="workinghour"
-              type="number"
-              {...register("workinghour")}
-              className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
-            />
-          </div>
+    <div>
+      <Navbar />
 
-          <div className="col-span-2 flex justify-end space-x-4 mt-4">
-            {editMode ? (
-              <>
+      <main className="p-8 bg-gray-100 min-h-screen pt-20">
+        {/* Form Card */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-6">Manage Trainer</h2>
+          <form
+            onSubmit={handleSubmit(handleMemberFormSubmit)}
+            className="grid grid-cols-2 gap-6"
+          >
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Name:
+              </label>
+              <input
+                name="name"
+                type="text"
+                {...register("name", { required: true })}
+                className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Phone:
+              </label>
+              <input
+                name="phone"
+                type="number"
+                {...register("phone")}
+                className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Salary:
+              </label>
+              <input
+                name="salary"
+                type="number"
+                {...register("salary")}
+                className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Working Hour:
+              </label>
+              <input
+                name="workinghour"
+                type="number"
+                {...register("workinghour")}
+                className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+              />
+            </div>
+
+            <div className="col-span-2 flex justify-end space-x-4 mt-4">
+              {editMode ? (
+                <>
+                  <input
+                    type="submit"
+                    value="Update"
+                    className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg"
+                  />
+                  <button
+                    onClick={() => stopEditMode()}
+                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Cancel
+                  </button>
+                </>
+              ) : (
                 <input
                   type="submit"
-                  value="Update"
-                  className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg"
+                  value="Create"
+                  className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg"
                 />
-                <button
-                  onClick={() => stopEditMode()}
-                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg"
-                >
-                  Cancel
-                </button>
-              </>
-            ) : (
-              <input
-                type="submit"
-                value="Create"
-                className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg"
-              />
-            )}
-          </div>
-        </form>
-      </div>
+              )}
+            </div>
+          </form>
+        </div>
 
-      <div className="mt-6 bg-white p-4 rounded-lg shadow-md">
-        <DataGrid rows={staffList} columns={columns} autoHeight className="text-gray-700" />
-      </div>
-    </main>
+        {/* DataGrid Table */}
+        <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+        <h2 className="text-2xl font-semibold mb-4">Trainer List</h2>
+          <DataGrid
+            rows={staffList}
+            columns={columns}
+            pageSize={5}
+            autoHeight
+            className="text-gray-700"
+          />
+        </div>
+      </main>
+    </div>
   );
 }
