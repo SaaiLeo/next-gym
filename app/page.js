@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import './styles.css'; // Import external CSS file
+
 
 export default function Home() {
   return (
@@ -38,7 +38,8 @@ export default function Home() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" href="/member" className="custom-button">Manage</Button>
+            <Button size="small" href="/member" style={{border: "1px solid #7C3AED"}}
+            className="custom-button border border-purple-700 hover:bg-purple-700 hover:text-white">Manage</Button>
           </CardActions>
         </Card>
 
@@ -58,7 +59,8 @@ export default function Home() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" href="/plan" className="custom-button">Manage</Button>
+            <Button size="small" href="/plan" style={{border: "1px solid #7C3AED"}}
+            className="custom-button border border-purple-700 hover:bg-purple-700 hover:text-white">Manage</Button>
           </CardActions>
         </Card>
 
@@ -78,7 +80,8 @@ export default function Home() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small" href="/staff" className="custom-button">Manage</Button>
+            <Button size="small" href="/staff" style={{border: "1px solid #7C3AED"}}
+            className="custom-button border border-purple-700 hover:bg-purple-700 hover:text-white">Manage</Button>
           </CardActions>
         </Card>
 
