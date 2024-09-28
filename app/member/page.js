@@ -46,7 +46,9 @@ export default function Home() {
     if (startDate && duration) {
       const date = new Date(startDate);
       date.setMonth(date.getMonth() + duration);
-      return date.toISOString().split("T")[0]; // Convert to 'YYYY-MM-DD' format
+      //return date.toISOString().split("T")[0]; // Convert to 'YYYY-MM-DD' format
+      return date.toISOString().slice(0, 10);
+
     }
     return "";
   };
