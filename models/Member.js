@@ -1,3 +1,4 @@
+import { EditNote } from "@mui/icons-material";
 import mongoose from "mongoose";
 
 const memberSchema = new mongoose.Schema({
@@ -9,6 +10,9 @@ const memberSchema = new mongoose.Schema({
     age: Number,
     height: Number,
     weight: Number,
+    plan: String,
+    startDate: Date,
+    endDate: Date,
 });
 
 const Member = mongoose.models.member || mongoose.model("member", memberSchema);
