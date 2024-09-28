@@ -12,7 +12,7 @@ export default function Home() {
     <main className="bg-gradient-to-r from-blue-50 to-indigo-100 min-h-screen py-8">
       {/* Gym Manager App Heading */}
       <header className="text-center mb-8">
-        <h1 className="text-4xl font-extrabold text-gray-800 tracking-wide drop-shadow-lg">
+        <h1 className="text-purple-700 text-4xl font-extrabold tracking-wide drop-shadow-lg">
           Gym Manager
         </h1>
         <p className="text-gray-500 text-lg mt-2">

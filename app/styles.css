@@ -86,14 +86,8 @@ body {
 
 h1 {
     letter-spacing: 1px; /* More space between letters */
-  }
-  
-  header h1 {
-    background: linear-gradient(90deg, #1E90FF, #4682B4);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Gradient text effect */
-  }
+    
+  } 
   
   header p {
     font-style: italic;
