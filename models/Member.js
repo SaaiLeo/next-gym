@@ -13,7 +13,7 @@ const memberSchema = new mongoose.Schema({
     plan: String,
     startDate: Date,
     endDate: Date,
-    trainer:String,
+    trainer: String,
 });
 
 const Member = mongoose.models.member || mongoose.model("member", memberSchema);

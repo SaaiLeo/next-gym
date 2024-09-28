@@ -145,8 +145,7 @@ export default function Home() {
             <div key={field}>
               <label className="block text-gray-700 font-medium mb-1 capitalize">{field}:</label>
               <input
-                name={field}
-                type={field === "phone" ? "tel" : "number"}
+                 type={field === "name" ? "text" : field === "phone" ? "tel" : "number"}
                 {...register(field, { required: field !== "phone" })}
                 className="border border-gray-300 rounded-lg w-full p-2 focus:ring-blue-500 focus:border-blue-500"
               />
