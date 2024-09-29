@@ -25,7 +25,7 @@ export default function Home() {
             </button>
             <button
               onClickCapture={() => deletePlan(params.row)}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md"
+              className="bg-gray-300 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded-md"
             >
               🗑️
             </button>
@@ -82,6 +82,7 @@ export default function Home() {
       body: JSON.stringify(data),
     }).then(() => {
       fetchPlan();
+      stopEditMode();
     });
     return;
   }
