@@ -24,7 +24,7 @@ In our staff page, all staff and details such as name, phone number, monthly sal
 ![Image](screenshots/Trainer2.png)
 
 # Member Page
-In our member page, all existing members will be shown. Details such as member's name, phone number, age, height, weight, subscription plan, plan strat date and plan end date, associated trainer are also displayed. In order to create new member, the manager have to fill in member name, phone number, age, height, weight, plan, select starting date and the trainer. The plan and trainer options are based on the subscription plans created. After the manger select start date with date picker, the end date will automatically set based on the duration specified in the selected Plan. Moreover, the manager can edit and delete the existing member.
+In our member page, all existing members will be shown. Details such as member's name, phone number, age, height, weight, subscription plan, plan start date and plan end date, associated trainer are also displayed. In order to create new member, the manager have to fill in member name, phone number, age, height, weight, plan, select starting date and the trainer. The plan and trainer options are based on the subscription plans created. After the manger select start date with date picker, the end date will automatically set based on the duration specified in the selected Plan. Moreover, the manager can edit and delete the existing member.
 ![Image](screenshots/Member1.png)
 ![Image](screenshots/Member2.png)
 
