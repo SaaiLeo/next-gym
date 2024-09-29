@@ -160,7 +160,7 @@ export default function Home() {
               </label>
               <input
                 name="workinghour"
-                type="number"
+                type="text"
                 {...register("workinghour")}
                 className="border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
               />

@@ -4,7 +4,7 @@ const staffSchema = new mongoose.Schema({
     name: String,
     phone: String,
     salary: Number,
-    workinghour: Number,
+    workinghour: String,
 })
 
 const Staff = mongoose.models.staff || mongoose.model("staff", staffSchema);
