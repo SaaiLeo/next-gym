@@ -20,7 +20,7 @@ export default function Home() {
               ✏️
             </button>
             <button onClick={() => deleteMember(params.row)} 
-            className="bg-red-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-md">
+            className="bg-gray-300 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded-md">
               🗑️
             </button>
           </div>
@@ -110,7 +110,7 @@ export default function Home() {
       body: JSON.stringify(data),
     }).then(() => {
       fetchMember();
-      if (editMode) stopEditMode();
+      stopEditMode();
     });
   }
 
