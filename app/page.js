@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 export default function Home() {
   return (
     <main>
+      <h1 className="text-5xl font-bold text-center">Welcome to Gym Management System</h1>
+      <br/>
+      <br/>
       <div className="grid grid-cols-3 gap-4 m-4">
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
